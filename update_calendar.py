@@ -2,15 +2,16 @@ import csvDiff
 import csvToJson2
 import luigiCalUpdate2
 import sys
+import os
 import json
 import CreateCredentials
 
 # Take old and new calendar csv files as arguments and store their contents in variables in list format
-with open(sys.argv[1]) as f:
+with open(os.environ.get('OLD_CAL')) as f:
     lines = f.readlines()
     previous_cal_events = [ line.strip('\n') for line in lines ]
 
-with open(sys.argv[2]) as f:
+with open(os.environ.get('NEW_CAL')) as f:
     lines = f.readlines()
     new_cal_events = [ line.strip('\n') for line in lines]
 
