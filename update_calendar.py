@@ -7,11 +7,11 @@ import json
 import CreateCredentials
 
 # Take old and new calendar csv files as arguments and store their contents in variables in list format
-with open(os.environ.get('OLD_CAL')) as f:
+with open('/calendars/oldcal.csv') as f:
     lines = f.readlines()
     previous_cal_events = [ line.strip('\n') for line in lines ]
 
-with open(os.environ.get('NEW_CAL')) as f:
+with open('/calendars/newcal.csv') as f:
     lines = f.readlines()
     new_cal_events = [ line.strip('\n') for line in lines]
 

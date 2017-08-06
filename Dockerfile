@@ -4,9 +4,6 @@ WORKDIR /app
 
 ADD . /app
 
-ENV OLD_CAL \
-    NEW_CAL
-
 RUN pip install -r requirements.txt
 
 EXPOSE 80
