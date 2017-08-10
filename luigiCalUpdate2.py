@@ -14,8 +14,6 @@ from oauth2client.file import Storage
 from pprint import pprint
 import CreateCredentials
 
-# DATE_REGEX = '(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})'
-
 def get_credentials():
     credentials = CreateCredentials.get_credentials()
     return credentials
@@ -32,18 +30,16 @@ def update_calendar(events_to_add=[], events_to_delete=[]):
     eventIdTable = dict()
     page_token = None
 
+    # Create event id dictionary for deletion lookup
     while True:
         # get list of events from calendar
         events = service.events().list(calendarId='primary', pageToken=page_token, singleEvents=True).execute()
-        # populate eventIdTable width event ids
         for event in events['items']:
-            # small_date = re.search(DATE_REGEX, event['start']['dateTime'])
             key = event['summary'].strip(' ') + event['start']['dateTime']
             eventIdTable[key] = event['id']
         page_token = events.get('nextPageToken')
         if not page_token:
             break
-    print(eventIdTable)
 
     # Add New Events
     for event in events_to_add:
@@ -52,8 +48,8 @@ def update_calendar(events_to_add=[], events_to_delete=[]):
 
     # Delete Removed Events
     for event in events_to_delete:
-        print(event)
         key = event['summary'].strip(' ') + event['start']['dateTime']
         service.events().delete(calendarId='primary', eventId=eventIdTable[key]).execute()
         print('Event deleted: {} : {}'.format(event['summary'].strip(' '), event['start']['dateTime']))
+
     return 0
