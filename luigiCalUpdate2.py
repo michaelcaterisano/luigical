@@ -50,12 +50,10 @@ def update_calendar(events_to_add=[], events_to_delete=[]):
         page_token = events.get('nextPageToken')
         if not page_token:
             break
-    print('EVENTS.........{}'.format(eventIdTable))
 
     # Add New Events
     for event in events_to_add:
         key = event['summary'].strip(' ') + event['start']['dateTime']
-        print('add event key {}'.format(key))
         # if key not in eventIdTable:
         event = service.events().insert(calendarId='primary', body=event).execute()
         print('Event created: {} : {}'.format(event['summary'].strip(' '), event['start']['dateTime']))
