@@ -17,8 +17,7 @@ def get_credentials():
     credentials = CreateCredentials.get_credentials()
     return credentials
 
-
-def update_calendar(events_to_add=[], events_to_delete=[]):
+def update_calendar(credentials, events_to_add=[], events_to_delete=[]):
     """Adds new events and deletes removed events
     """
     credentials = get_credentials()
@@ -46,9 +45,9 @@ def update_calendar(events_to_add=[], events_to_delete=[]):
         event = service.events().insert(calendarId='primary', body=event).execute()
         print('Event created: {} : {}'.format(event['summary'].strip(' '), event['start']['dateTime']))
 
-
     # Delete Removed Events
     for event in events_to_delete:
         key = event['summary'].strip(' ') + event['start']['dateTime']
         service.events().delete(calendarId='primary', eventId=eventIdTable[key]).execute()
         print('Event deleted: {} : {}'.format(event['summary'].strip(' '), event['start']['dateTime']))
+    return 0

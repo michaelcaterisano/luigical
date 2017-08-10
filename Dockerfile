@@ -6,6 +6,6 @@ ADD . /app
 
 RUN pip install -r requirements.txt
 
-EXPOSE 80
+EXPOSE 4200
 
 ENTRYPOINT ["python", "update_calendar.py"]

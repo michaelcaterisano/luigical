@@ -24,16 +24,16 @@ def get_credentials():
     """
 
     SCOPES = 'https://www.googleapis.com/auth/calendar'
-    CLIENT_SECRET_FILE = './clientSecret/client_secret.json'
+    CLIENT_SECRET_FILE = 'dockervolume/client_secret.json'
     APPLICATION_NAME = 'mcatbillingCalendar'
 
-    # try:
-    #     import argparse
-    #     flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
-    # except ImportError:
-    #     flags = None
+    try:
+        import argparse
+        flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
+    except ImportError:
+        flags = None
 
-    credential_dir = os.path.join('./credentials')
+    credential_dir = os.path.join('credentials')
     if not os.path.exists(credential_dir):
         os.makedirs(credential_dir)
     credential_path = os.path.join(credential_dir,
@@ -41,13 +41,13 @@ def get_credentials():
 
     store = Storage(credential_path)
     credentials = store.get()
-    # if not credentials or credentials.invalid:
-    #     flow = client.flow_from_clientsecrets(CLIENT_SECRET_FILE, SCOPES)
-    #     flow.user_agent = APPLICATION_NAME
-    #     if flags:
-    #         credentials = tools.run_flow(flow, store, flags)
-    #     else: # Needed only for compatibility with Python 2.6
-    #         credentials = tools.run(flow, store)
-    #     print('Storing credentials to ' + credential_path)
+    if not credentials or credentials.invalid:
+        flow = client.flow_from_clientsecrets(CLIENT_SECRET_FILE, SCOPES)
+        flow.user_agent = APPLICATION_NAME
+        if flags:
+            credentials = tools.run_flow(flow, store, flags)
+        else: # Needed only for compatibility with Python 2.6
+            credentials = tools.run(flow, store)
+        print('Storing credentials to ' + credential_path)
 
     return credentials
