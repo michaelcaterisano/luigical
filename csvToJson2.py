@@ -24,27 +24,29 @@ def get_formatted_events(event_list):
                 errors.append(row)
             # append remaining items to output array
             else:
-                # calculate daylight savings time
-                date_list = row[1].split('-')
-                year = int(date_list[0])
-                month = int(date_list[1])
-                day = int(date_list[2])
-                dst = bool(pytz.timezone('America/New_York').dst(datetime(year,month,day), is_dst=None))
 
-                if dst:
-                    ext = ':00-04:00'
-                else:
-                    ext = ':00-05:00'
+
+                # calculate daylight savings time
+                # date_list = row[1].split('-')
+                # year = int(date_list[0])
+                # month = int(date_list[1])
+                # day = int(date_list[2])
+                # dst = bool(pytz.timezone('America/New_York').dst(datetime(year,month,day), is_dst=None))
+                #
+                # if dst:
+                #     ext = '-04:00'
+                # else:
+                #     ext = '-05:00'
 
                 output.append({
                     'summary': row[0],
                     'description': row[6],
                     'start':{
-                        'dateTime': row[1] + 'T' + row[2] + ext,
+                        'dateTime': row[1] + 'T' + row[2] + ':00',
                         'timeZone': 'America/New_York',
                     },
                     'end':{
-                        'dateTime':row[3] + 'T' + row[4] + ext,
+                        'dateTime':row[3] + 'T' + row[4] + ':00',
                         'timeZone': 'America/New_York',
                     }
                     })

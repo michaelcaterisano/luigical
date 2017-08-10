@@ -23,10 +23,10 @@ def main():
 
     # Convert to Google event JSON format
 
-    additions = csvToJson2.get_formatted_events(additions_list)
-    deletions = csvToJson2.get_formatted_events(deletions_list)
+    events_to_add = csvToJson2.get_formatted_events(additions_list)
+    events_to_delete = csvToJson2.get_formatted_events(deletions_list)
 
     # Upload to Google Calendar
-    luigiCalUpdate2.update_calendar(additions, deletions)
+    luigiCalUpdate2.update_calendar(events_to_add, events_to_delete)
 
 if __name__ == "__main__": main()
