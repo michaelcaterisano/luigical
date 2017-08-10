@@ -61,6 +61,9 @@ def update_calendar(events_to_add=[], events_to_delete=[]):
     # Delete Removed Events
     for event in events_to_delete:
         key = event['summary'].strip(' ') + event['start']['dateTime']
+        if key not in eventIdTable:
+            print('Can\'t delete event {}, not present on Google Calendar'.format(key))
+            break
         service.events().delete(calendarId='primary', eventId=eventIdTable[key]).execute()
         print('Event deleted: {} : {}'.format(event['summary'].strip(' '), event['start']['dateTime']))
 
