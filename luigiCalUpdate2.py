@@ -54,9 +54,11 @@ def update_calendar(events_to_add=[], events_to_delete=[]):
     # Add New Events
     for event in events_to_add:
         key = event['summary'].strip(' ') + event['start']['dateTime']
-        # if key not in eventIdTable:
-        event = service.events().insert(calendarId='primary', body=event).execute()
-        print('Event created: {} : {}'.format(event['summary'].strip(' '), event['start']['dateTime']))
+        if key not in eventIdTable:
+            event = service.events().insert(calendarId='primary', body=event).execute()
+            print('Event created: {} : {}'.format(event['summary'].strip(' '), event['start']['dateTime']))
+        else:
+            print('Did not add event {}, already present on Google Calendar'.format(key))
 
     # Delete Removed Events
     for event in events_to_delete:
