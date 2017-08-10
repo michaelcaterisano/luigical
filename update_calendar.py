@@ -4,13 +4,10 @@ import luigiCalUpdate2
 # import sys
 # import os
 # import json
-import CreateCredentials
+# import CreateCredentials
 
 def main():
     # Take old and new calendar csv files as arguments and store their contents in variables in list format
-
-    # get credentials
-    credentials = CreateCredentials.get_credentials()
 
     with open('dockervolume/oldcal.csv') as f:
         lines = f.readlines()
@@ -25,10 +22,11 @@ def main():
     deletions_list = csvDiff.get_deletions(previous_cal_events, new_cal_events)
 
     # Convert to Google event JSON format
+
     additions = csvToJson2.get_formatted_events(additions_list)
     deletions = csvToJson2.get_formatted_events(deletions_list)
 
     # Upload to Google Calendar
-    luigiCalUpdate2.update_calendar(credentials, additions, deletions)
+    luigiCalUpdate2.update_calendar(additions, deletions)
 
 if __name__ == "__main__": main()

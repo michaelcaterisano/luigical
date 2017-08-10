@@ -4,6 +4,9 @@ import csv
 import json
 import sys
 import re
+import pytz
+
+from datetime import datetime
 
 def get_formatted_events(event_list):
     """ Returns a list of events formatted as json for the google cal api """
@@ -20,15 +23,30 @@ def get_formatted_events(event_list):
             errors.append(row)
         # append remaining items to output array
         else:
+            # calculate daylight savings time
+            date_list = row[1].split('-')
+            year = int(date_list[0])
+            month = int(date_list[1])
+            day = int(date_list[2])
+            dst = bool(pytz.timezone('America/New_York').dst(datetime(year,month,day), is_dst=None))
+
+            if dst:
+                ext = ':00-04:00'
+            else:
+                ext = ':00-05:00'
+
+            print('HEY!!!!!')
+            print(dst)
+            print(year, month, day)
             output.append({
                 'summary': row[0],
                 'description': row[6],
                 'start':{
-                    'dateTime': row[1] + 'T' + row[2] + ':00-04:00',
+                    'dateTime': row[1] + 'T' + row[2] + ext,
                     'timeZone': 'America/New_York',
                 },
                 'end':{
-                    'dateTime':row[3] + 'T' + row[4] + ':00-04:00',
+                    'dateTime':row[3] + 'T' + row[4] + ext,
                     'timeZone': 'America/New_York',
                 }
                 })
