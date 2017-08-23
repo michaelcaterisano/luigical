@@ -12,17 +12,8 @@ from oauth2client import tools
 from oauth2client.file import Storage
 from pprint import pprint
 
-try:
-    import argparse
-    flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
-except ImportError:
-    flags = None
 
-SCOPES = 'https://www.googleapis.com/auth/calendar'
-CLIENT_SECRET_FILE = '/Users/michaelcaterisano/workspace/luigiCalendarParser/clientSecret/client_secret.json'
-APPLICATION_NAME = 'mcatbillingCalendar'
-
-def get_credentials():
+def main():
     """Gets valid user credentials from storage.
 
     If nothing has been stored, or if the stored credentials are invalid,
@@ -31,7 +22,17 @@ def get_credentials():
     Returns:
         Credentials, the obtained credential.
     """
-    # home_dir = os.path.expanduser('~')
+
+    SCOPES = 'https://www.googleapis.com/auth/calendar'
+    CLIENT_SECRET_FILE = 'temp/client_secret.json'
+    APPLICATION_NAME = 'mcatbillingCalendar'
+
+    try:
+        import argparse
+        flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
+    except ImportError:
+        flags = None
+
     credential_dir = os.path.join('temp')
     if not os.path.exists(credential_dir):
         os.makedirs(credential_dir)
@@ -48,17 +49,7 @@ def get_credentials():
         else: # Needed only for compatibility with Python 2.6
             credentials = tools.run(flow, store)
         print('Storing credentials to ' + credential_path)
+
     return credentials
 
-def main():
-    """Clears the current calendar
-    """
-    credentials = get_credentials()
-    http = credentials.authorize(httplib2.Http())
-    service = discovery.build('calendar', 'v3', http=http)
-
-    #### Clear primary calendar ####
-    service.calendars().clear(calendarId='primary').execute()
-
-if __name__ == '__main__':
-    main()
+if __name__=="__main__":main()

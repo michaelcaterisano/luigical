@@ -8,7 +8,6 @@ import luigiCalUpdate2
 
 def main():
     # Take old and new calendar csv files as arguments and store their contents in variables in list format
-
     with open('dockervolume/oldcal.csv') as f:
         lines = f.readlines()
         previous_cal_events = [ line.strip('\n') for line in lines ]
@@ -22,7 +21,6 @@ def main():
     deletions_list = csvDiff.get_deletions(previous_cal_events, new_cal_events)
 
     # Convert to Google event JSON format
-
     events_to_add = csvToJson2.get_formatted_events(additions_list)
     events_to_delete = csvToJson2.get_formatted_events(deletions_list)
 
