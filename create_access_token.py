@@ -25,7 +25,7 @@ def main():
 
     SCOPES = 'https://www.googleapis.com/auth/calendar'
     CLIENT_SECRET_FILE = 'temp/client_secret.json'
-    APPLICATION_NAME = 'mcatbillingCalendar'
+    APPLICATION_NAME = 'test'
 
     try:
         import argparse
