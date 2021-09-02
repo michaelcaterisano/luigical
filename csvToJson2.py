@@ -42,7 +42,7 @@ def get_formatted_events(event_list):
                     })
 
             # if errors, append to errorfile
-            with open('dockervolume/errorfile.txt', 'a+') as errorfile:
+            with open('temp/errorfile.txt', 'a+') as errorfile:
                 if errors:
                     for i in range(len(errors)):
                         json.dump(errors[i], errorfile)

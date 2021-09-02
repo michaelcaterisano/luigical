@@ -9,4 +9,5 @@ Initially, Luigical accepts a .csv file containing calendar data (formatted with
 ```
 docker build -t luigical .
 
-docker run -dp 3000:3000 luigical```
+docker run -dp 3000:3000 luigical
+```

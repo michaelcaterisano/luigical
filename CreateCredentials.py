@@ -24,7 +24,7 @@ def get_credentials():
     """
 
     SCOPES = 'https://www.googleapis.com/auth/calendar'
-    CLIENT_SECRET_FILE = 'dockervolume/client_secret.json'
+    CLIENT_SECRET_FILE = 'temp/client_secret.json'
     APPLICATION_NAME = 'mcatbillingCalendar'
 
     # try:
@@ -33,7 +33,7 @@ def get_credentials():
     # except ImportError:
     #     flags = None
 
-    credential_dir = os.path.join('dockervolume')
+    credential_dir = os.path.join('temp')
     if not os.path.exists(credential_dir):
         os.makedirs(credential_dir)
     credential_path = os.path.join(credential_dir,

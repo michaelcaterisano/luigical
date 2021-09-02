@@ -8,11 +8,11 @@ import luigiCalUpdate2
 
 def main():
     # Take old and new calendar csv files as arguments and store their contents in variables in list format
-    with open('dockervolume/oldcal.csv') as f:
+    with open('temp/oldcal.csv') as f:
         lines = f.readlines()
         previous_cal_events = [ line.strip('\n') for line in lines ]
 
-    with open('dockervolume/newcal.csv') as f:
+    with open('temp/newcal.csv') as f:
         lines = f.readlines()
         new_cal_events = [ line.strip('\n') for line in lines]
 
