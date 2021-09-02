@@ -19,8 +19,8 @@ except ImportError:
     flags = None
 
 SCOPES = 'https://www.googleapis.com/auth/calendar'
-CLIENT_SECRET_FILE = '/Users/michaelcaterisano/workspace/luigiCalendarParser/clientSecret/client_secret.json'
-APPLICATION_NAME = 'mcatbillingCalendar'
+CLIENT_SECRET_FILE = 'temp/client_secret.json'
+APPLICATION_NAME = 'gcalDesktop'
 
 def get_credentials():
     """Gets valid user credentials from storage.

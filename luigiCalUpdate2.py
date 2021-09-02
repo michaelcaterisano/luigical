@@ -42,7 +42,7 @@ def update_calendar(events_to_add=[], events_to_delete=[]):
     # Create event id dictionary for deletion lookup
     while True:
         # get list of events from calendar
-        events = service.events().list(calendarId='primary', pageToken=page_token, singleEvents=True).execute()
+        events = service.events().list(calendarId='luigical@iceorg.org', pageToken=page_token, singleEvents=True).execute()
         for event in events['items']:
             short_date = re.search(DATE_REGEX, event['start']['dateTime'])
             key = event['summary'].strip(' ') + str(short_date.group(0))
@@ -55,7 +55,7 @@ def update_calendar(events_to_add=[], events_to_delete=[]):
     for event in events_to_add:
         key = event['summary'].strip(' ') + event['start']['dateTime']
         if key not in eventIdTable:
-            event = service.events().insert(calendarId='primary', body=event).execute()
+            event = service.events().insert(calendarId='luigical@iceorg.org', body=event).execute()
             print('Event created: {} : {}'.format(event['summary'].strip(' '), event['start']['dateTime']))
         else:
             print('Did not add event {}, already present on Google Calendar'.format(key))
@@ -66,7 +66,7 @@ def update_calendar(events_to_add=[], events_to_delete=[]):
         if key not in eventIdTable:
             print('Can\'t delete event {}, not present on Google Calendar'.format(key))
             break
-        service.events().delete(calendarId='primary', eventId=eventIdTable[key]).execute()
+        service.events().delete(calendarId='luigical@iceorg.org', eventId=eventIdTable[key]).execute()
         print('Event deleted: {} : {}'.format(event['summary'].strip(' '), event['start']['dateTime']))
 
     return 0
